@@ -1,0 +1,160 @@
+// ignore_for_file: unnecessary_null_comparison
+
+import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:bodecart/common/app_style.dart';
+import 'package:bodecart/common/reusable_text.dart';
+import 'package:bodecart/constants/constants.dart';
+ 
+//import 'package:bodecart/constants/uidata.dart';
+//import 'package:bodecart/models/restaurants.dart';
+//import 'package:bodecart/views/restaurant/restaurants_page.dart';
+//import 'package:get/get.dart';
+
+class FoodTile extends StatelessWidget {
+  const FoodTile({
+    super.key,
+    required this.food,
+  });
+
+  final dynamic food;
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return GestureDetector(
+      onTap: () {
+        
+
+      },
+      child: Stack(
+        clipBehavior: Clip.hardEdge,
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 8.h),
+            height: 70.h,
+            width: width,
+            decoration:  BoxDecoration(
+                color: kOffWhite,
+                borderRadius: BorderRadius.all(Radius.circular(9.r))),
+            child: Container(
+              padding:  EdgeInsets.all(4.r),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius:  BorderRadius.all(Radius.circular(12.r)),
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                            height: 70.h,
+                            width: 70.w,
+                            child: Image.network(
+                              food['imageUrl'],
+                              fit: BoxFit.cover,
+                            )),
+                        Positioned(
+                            bottom: 0,
+                            child: Container(
+                              padding:
+                                   EdgeInsets.only(left: 6.w, bottom: 2.h),
+                              color: kGray.withValues(alpha: 0.6),
+                              height: 16.h,
+                              width: width,
+                              child: RatingBarIndicator(
+                                rating: 5,
+                                itemBuilder: (context, index) => const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                itemCount: 5,
+                                itemSize: 15.h,
+                                direction: Axis.horizontal,
+                              ),
+                            ))
+                      ],
+                    ),
+                  ),
+                   SizedBox(
+                    width: 10.w,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      ReusableText(
+                          text: food['title'],
+                          style: appStyle(11, FontWeight.w400, kDark)),
+                      ReusableText(
+                          text: "Delivery time: ${food['time']}",
+                          style: appStyle(11, FontWeight.w400, kGray)),
+                      // const SizedBox(
+                      //   height: 5,
+                      // ),
+                      SizedBox(
+                        width: width * 0.7,
+                        child: Container(
+                          child: ReusableText(
+                              text: food['description'],
+                              style:
+                                  appStyle(10, FontWeight.w400, kGrayLight)),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            right: 5,
+            top: 6.h,
+            child: Container(
+              width: 60.h,
+              height: 19.h,
+              decoration: BoxDecoration(
+                  color: kPrimary,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  )),
+              child: Center(
+                child: ReusableText(
+                  text: food['price'].toString(),
+                  style: appStyle(12, FontWeight.bold, kLightWhite),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+              right: 70.h,
+              top: 6.h,
+              child: Container(
+                width: 19.h,
+                height: 19.h,
+                decoration: const BoxDecoration(
+                    color: kSecondary,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: const Center(
+                    child: Icon(
+                      MaterialCommunityIcons.shopping_outline,
+                      size: 15,
+                      color: kLightWhite,
+                    ),
+                  ),
+                ),
+              ))
+        ],
+      ),
+    );
+  }
+}
